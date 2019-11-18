@@ -113,12 +113,12 @@ console.log(returnArgumentsArray(1,40,55,125))
 function bindFunction(fn) {
 let F = function(a, b){
   return a + b
-};
-F.apply(fn, [4, 6]);
-return F()
 }
-var newSum = bindFunction(fn, 2, 4)
-console.log(newSum())
+var newSum = F.apply(this, [2, 4])
+return newSum
+}
+
+console.log(bindFunction())
 
 export {
     returnFirstArgument,
