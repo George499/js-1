@@ -71,10 +71,15 @@ console.log(returnFnResult(fn))
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {
- 
+function returnCounter(number = 0) {
+  return function() {
+    return ++number
+  }
 }
-console.log(returnCounter())
+var f = returnCounter(10)
+ 
+console.log(f())
+console.log(f())
 /*
  Задание 5 *:
 
@@ -107,14 +112,31 @@ console.log(returnArgumentsArray(1,40,55,125))
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn) {
-  var args = "";
-  for (var i = 1; i < arguments.length; i++) {
-    args += arguments[i]
-  }
-var func = fn.apply(null, args);
-return func
+function bindFunction(F, ...args) { 
+let argArray = [...args];
+return function() { 
+  return F.apply(this, argArray)
+};
 }
+
+function sum(...args){
+  let result = 0;
+  for(let i = 0; i < args.length; i++){
+    result += args[i];
+  }
+  return result
+}
+
+(fn, ...args) =>  {
+let argArray = [...args]
+return fn(this, argArray)
+}
+var newSum = bindFunction(sum, 2, 5)
+
+
+console.log(newSum());
+
+
 
 
 export {
