@@ -13,10 +13,9 @@
  Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
  */
 function returnFirstArgument(a) {
-  return(a)
-  }
-  console.log(returnFirstArgument(25))
 
+    return a;
+}
 /*
  Задание 2:
 
@@ -32,16 +31,14 @@ function returnFirstArgument(a) {
    sumWithDefaults(10) вернет 110
  */
 function sumWithDefaults(a, b = 100) {
-  let sum = a + b
-  for (let i = 2; i < arguments.length; i++) {
-    sum += arguments[i]
-  }
-  return sum
+    let sum = a + b;
+
+    for (let i = 2; i < arguments.length; i++) {
+        sum += arguments[i];
+    }
+
+    return sum;
 }
-
-console.log (sumWithDefaults(10))
-
-
 /*
  Задание 3:
 
@@ -50,14 +47,12 @@ console.log (sumWithDefaults(10))
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) { 
-  return fn()
+function returnFnResult(fn) {
+
+    return fn();
 }
 
-let fn = function(){
-  return true
-}
-console.log(returnFnResult(fn))
+function()
 /*
  Задание 4:
 
@@ -72,14 +67,19 @@ console.log(returnFnResult(fn))
    console.log(f()); // выведет 13
  */
 function returnCounter(number = 0) {
-  return function() {
-    return ++number
-  }
+    let und = 0;
+
+    for (let i = 1; i < arguments.length; i++) {
+        und += arguments[i];
+    }
+
+    return function() {
+
+        return ++number + und;
+    };
 }
-var f = returnCounter(10)
- 
-console.log(f())
-console.log(f())
+var f = returnCounter(10, 5);
+
 /*
  Задание 5 *:
 
@@ -90,13 +90,11 @@ console.log(f())
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
-  var args = [];
-  for (var i = 0; i< arguments.length; i++)
-  args[i] = arguments[i];
-  return args
-}
-console.log(returnArgumentsArray(1,40,55,125))
+    var args = [];
+    for (var i = 0; i < arguments.length; i++) args[i] = arguments[i];
 
+    return args;
+}
 /*
  Задание 6 *:
 
@@ -112,33 +110,31 @@ console.log(returnArgumentsArray(1,40,55,125))
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(F, ...args) { 
-let argArray = [...args];
-return function() { 
-  return F.apply(this, argArray)
+function bindFunction(F, ...args) {
+    let argArray = [...args];
+
+    return function() {
+
+        return F.apply(this, argArray);
+    };
+}
+
+function sum(...args) {
+    let result = 0;
+    for (let i = 0; i < args.length; i++) {
+        result += args[i];
+    }
+
+    return result;
+}
+(fn, ...args) => {
+    let argArray = [...args];
+
+    return fn(this, argArray);
 };
-}
+var newSum = bindFunction(sum, 2, 5);
 
-function sum(...args){
-  let result = 0;
-  for(let i = 0; i < args.length; i++){
-    result += args[i];
-  }
-  return result
-}
-
-(fn, ...args) =>  {
-let argArray = [...args]
-return fn(this, argArray)
-}
-var newSum = bindFunction(sum, 2, 5)
-
-
-console.log(newSum());
-
-
-
-
+newSum()
 export {
     returnFirstArgument,
     sumWithDefaults,
@@ -146,4 +142,4 @@ export {
     returnFnResult,
     returnCounter,
     bindFunction
-}
+};
