@@ -31,14 +31,14 @@ function returnFirstArgument(a) {
    sumWithDefaults(10) вернет 110
  */
 function sumWithDefaults(a, b = 100) {
-    let sum = a + b;
-
     for (let i = 2; i < arguments.length; i++) {
-        sum += arguments[i];
+        return (a[i] + b[i])
     }
 
-    return sum;
+    return a + b
+
 }
+
 /*
  Задание 3:
 
@@ -52,7 +52,6 @@ function returnFnResult(fn) {
     return fn();
 }
 
-function()
 /*
  Задание 4:
 
@@ -78,7 +77,6 @@ function returnCounter(number = 0) {
         return ++number + und;
     };
 }
-var f = returnCounter(10, 5);
 
 /*
  Задание 5 *:
@@ -90,11 +88,15 @@ var f = returnCounter(10, 5);
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
-    var args = [];
-    for (var i = 0; i < arguments.length; i++) args[i] = arguments[i];
+    var args = []
 
-    return args;
+    for (var i = 0; i < arguments.length; i++) {
+        args[i] = arguments[i]
+    }
+
+    return args
 }
+
 /*
  Задание 6 *:
 
@@ -112,29 +114,13 @@ function returnArgumentsArray() {
  */
 function bindFunction(F, ...args) {
     let argArray = [...args];
-
+    
     return function() {
 
         return F.apply(this, argArray);
     };
 }
 
-function sum(...args) {
-    let result = 0;
-    for (let i = 0; i < args.length; i++) {
-        result += args[i];
-    }
-
-    return result;
-}
-(fn, ...args) => {
-    let argArray = [...args];
-
-    return fn(this, argArray);
-};
-var newSum = bindFunction(sum, 2, 5);
-
-newSum()
 export {
     returnFirstArgument,
     sumWithDefaults,
