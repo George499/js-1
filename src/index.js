@@ -31,9 +31,6 @@ function returnFirstArgument(a) {
    sumWithDefaults(10) вернет 110
  */
 function sumWithDefaults(a, b = 100) {
-    for (let i = 2; i < arguments.length; i++) {
-        return (a[i] + b[i])
-    }
 
     return a + b
 
@@ -66,16 +63,12 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 13
  */
 function returnCounter(number = 0) {
-    let und = 0;
 
-    for (let i = 1; i < arguments.length; i++) {
-        und += arguments[i];
+    return function F() {
+
+        return ++number;
+
     }
-
-    return function() {
-
-        return ++number + und;
-    };
 }
 
 /*
