@@ -74,7 +74,11 @@ function upperProps(obj) {
 
     var keys = []
 
-    for (var item in obj) { keys.push(item) }
+    for (var item in obj) {
+        if (obj.hasOwnProperty(item)) {
+            keys.push(item)
+        }
+    }
 
     keys.forEach(function(item, i, keys) {
         keys[i] = keys[i].toUpperCase();
@@ -90,14 +94,18 @@ function upperProps(obj) {
  Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
  */
 function slice(array, from, to) {
+    // var sliceArr = []
 
-    if from > 0 && to > 0 {
-        for
-    }
-
+    // if (from > 0 && to > 0) {
+    //     for (i = 0; i < array.length; i++) {
+    //         sliceArr.push(arrai[i])
+    //     }
+    // } else if (from == undefined) {
+    //     for (i = from; i < array.length; i++) {
+    //         sliceArr.push(arrai[i])
+    //     }
+    // }
 }
-
-
 
 /*
  Задание 6 *:
