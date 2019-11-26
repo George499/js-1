@@ -17,36 +17,23 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-  if (array.length == 0 || !Array.isArray(array)) {
+
+    function fn() {
+        return true
+    }
+
+    if fn() {
+        return true
+    }
+    return false;
+}
+
+if (array.length === 0 || !Array.isArray(array)) {
     throw 'empty array';
 }
 
 if (typeof fn != 'function') {
     throw 'fn is not a function';
-}
-
-var array2=[], 
-    c = 0,
-    result = 1;
-
-for (var i = 0; i < array.length; i++) {
-    if (fn(array[i]) == true) {
-        array2[c] = 1;
-        c++;
-    } else {
-        array2[c] = 0;
-        c++;
-    }
-}
-for (var item of array2) {
-    result *= item;
-}
-
-if (result == 1) {
-    return true;
-}
- 
-return false;
 }
 
 /*
@@ -66,36 +53,36 @@ return false;
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-  if (array.length == 0 || !Array.isArray(array)) {
-    throw 'empty array';
-}
-
-if (typeof fn != 'function') {
-    throw 'fn is not a function';
-}
-
-var array2=[], 
-    c = 0,
-    result = 0;
-
-for (var i = 0; i < array.length; i++) {
-    if (fn(array[i]) == true) {
-        array2[c] = 1;
-        c++;
-    } else {
-        array2[c] = 0;
-        c++;
+    if (array.length == 0 || !Array.isArray(array)) {
+        throw 'empty array';
     }
-}
-for (var item of array2) {
-    result += item;
-}
 
-if (result > 0) {
-    return true;
-}
+    if (typeof fn != 'function') {
+        throw 'fn is not a function';
+    }
 
-return false;
+    var array2 = [],
+        c = 0,
+        result = 0;
+
+    for (var i = 0; i < array.length; i++) {
+        if (fn(array[i]) == true) {
+            array2[c] = 1;
+            c++;
+        } else {
+            array2[c] = 0;
+            c++;
+        }
+    }
+    for (var item of array2) {
+        result += item;
+    }
+
+    if (result > 0) {
+        return true;
+    }
+
+    return false;
 }
 
 /*
@@ -110,23 +97,23 @@ return false;
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
-  var array = [...arguments].slice(1),
-  array2 = [];
+    var array = [...arguments].slice(1),
+        array2 = [];
 
-if (typeof fn != 'function') {
-  throw 'fn is not a function'; 
-}
+    if (typeof fn != 'function') {
+        throw 'fn is not a function';
+    }
 
-for (var item of array) {
-  try {
-      fn(item)
-  } catch (error) {
-      array2.push(item);
-  }
-  
-}
+    for (var item of array) {
+        try {
+            fn(item)
+        } catch (error) {
+            array2.push(item);
+        }
 
-return array2;
+    }
+
+    return array2;
 }
 
 /*
@@ -147,45 +134,45 @@ return array2;
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator() {
-  if (typeof number != 'number') {
-    throw new Error('number is not a number');
-}
-
-var obj = {
-    sum: function () {
-        for (let item of arguments) {
-            number += item;
-        }
-        
-        return number;
-    },
-    dif: function () {
-        for (let item of arguments) {
-            number -= item;
-        }
-        
-        return number;
-    },
-    div: function () {
-        for (let item of arguments) {
-            if (item === 0) {
-                throw new Error('division by 0');
-            }
-            number /= item;
-        }
-        
-        return number;
-    },
-    mul: function () {
-        for (let item of arguments) {
-            number *= item;
-        }
-        
-        return number;
+    if (typeof number != 'number') {
+        throw new Error('number is not a number');
     }
-}
 
-return obj;
+    var obj = {
+        sum: function() {
+            for (let item of arguments) {
+                number += item;
+            }
+
+            return number;
+        },
+        dif: function() {
+            for (let item of arguments) {
+                number -= item;
+            }
+
+            return number;
+        },
+        div: function() {
+            for (let item of arguments) {
+                if (item === 0) {
+                    throw new Error('division by 0');
+                }
+                number /= item;
+            }
+
+            return number;
+        },
+        mul: function() {
+            for (let item of arguments) {
+                number *= item;
+            }
+
+            return number;
+        }
+    }
+
+    return obj;
 }
 
 /* При решении задач, пострайтесь использовать отладчик */
