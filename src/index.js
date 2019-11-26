@@ -62,15 +62,19 @@ function reduce(array, fn, initial) {
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
 function upperProps(obj) {
-  var array = Object.keys(obj), i = 0;
+    
+    var keys = []
 
-    array.forEach ( function(item, i, array) {
-        array[i] = array[i].toUpperCase();
+    for (var item in obj) {keys.push(item)}
+
+    keys.forEach ( function(item, i, keys) {
+        keys[i] = keys[i].toUpperCase();
     })
 
-    return array;
-}
+    return keys;
+  }
 
+console.log(upperProps());
 /*
  Задание 5 *:
 
