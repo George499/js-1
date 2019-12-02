@@ -11,6 +11,11 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+    var div = document.createElement('div');
+
+    div.innerText = text;
+
+    return div;
 }
 
 /*
@@ -22,6 +27,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+    where.insertBefore(what, where.firstChild);
 }
 
 /*
@@ -44,6 +50,16 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+    var array = [],
+        childEl = where.children;
+
+    for (let i = 0; i < childEl.length - 1; i++) {
+        if (childEl[i].nextElementSibling.tagName === 'P') {
+            array.push(childEl[i]);
+        }
+    }
+
+    return array;
 }
 
 /*
@@ -85,8 +101,7 @@ function findError(where) {
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
-function deleteTextNodes(where) {
-}
+function deleteTextNodes(where) {}
 
 /*
  Задание 6:
@@ -99,8 +114,7 @@ function deleteTextNodes(where) {
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
-function deleteTextNodesRecursive(where) {
-}
+function deleteTextNodesRecursive(where) {}
 
 /*
  Задание 7 *:
@@ -122,8 +136,7 @@ function deleteTextNodesRecursive(where) {
      texts: 3
    }
  */
-function collectDOMStat(root) {
-}
+function collectDOMStat(root) {}
 
 /*
  Задание 8 *:
@@ -157,8 +170,7 @@ function collectDOMStat(root) {
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {
-}
+function observeChildNodes(where, fn) {}
 
 export {
     createDivWithText,
