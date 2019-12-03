@@ -26,8 +26,7 @@ const homeworkContainer = document.querySelector('#homework-container');
    const newDiv = createDiv();
    homeworkContainer.appendChild(newDiv);
  */
-function createDiv() {
-}
+function createDiv() {}
 
 /*
  Функция должна добавлять обработчики событий для перетаскивания элемента при помощи drag and drop
@@ -37,8 +36,7 @@ function createDiv() {
    homeworkContainer.appendChild(newDiv);
    addListeners(newDiv);
  */
-function addListeners(target) {
-}
+function addListeners(target) {}
 
 let addDivButton = homeworkContainer.querySelector('#addDiv');
 
