@@ -17,6 +17,17 @@
  */
 const homeworkContainer = document.querySelector('#homework-container');
 
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomColor() {
+    return '#' + Math.random().toString(16).slice(-6)
+}
+
 /*
  Функция должна создавать и возвращать новый div с классом draggable-div и случайными размерами/цветом/позицией
  Функция должна только создавать элемент и задвать ему случайные размер/позицию/цвет
@@ -26,7 +37,19 @@ const homeworkContainer = document.querySelector('#homework-container');
    const newDiv = createDiv();
    homeworkContainer.appendChild(newDiv);
  */
-function createDiv() {}
+function createDiv() {
+    let div = document.createElement('div');
+
+    div.classList.add('draggable-div');
+    div.style.height = getRandomIntInclusive(0, window.innerHeight) + 'px';
+    div.style.width = getRandomIntInclusive(0, window.innerWidth) + 'px';
+    div.style.backgroundColor = getRandomColor();
+    div.style.top = getRandomIntInclusive(0, window.innerHeight) + 'px';
+    div.style.left = getRandomIntInclusive(0, window.innerWidth) + 'px';
+    div.className = 'draggable-div';
+
+    return div;
+}
 
 /*
  Функция должна добавлять обработчики событий для перетаскивания элемента при помощи drag and drop
@@ -36,7 +59,36 @@ function createDiv() {}
    homeworkContainer.appendChild(newDiv);
    addListeners(newDiv);
  */
-function addListeners(target) {}
+function addListeners(target) {
+    target.ondragstart = function() {
+        return false;
+    };
+    target.onmousedown = function(e) {
+        let shiftX = e.clientX - target.getBoundingClientRect().left;
+        let shiftY = e.clientY - target.getBoundingClientRect().top;
+
+        target.style.position = 'absolute';
+        target.style.zIndex = 1000;
+        document.body.append(target);
+        moveAt(e.pageX, e.pageY);
+
+        function moveAt(pageX, pageY) {
+            target.style.left = pageX - shiftX + 'px';
+            target.style.top = pageY - shiftY + 'px'
+        }
+
+        function onMouseMove(e) {
+            moveAt(e.pageX, e.pageY)
+        }
+
+        document.addEventListener('mousemove', onMouseMove)
+
+        target.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            target.onmouseup = null
+        }
+    }
+}
 
 let addDivButton = homeworkContainer.querySelector('#addDiv');
 

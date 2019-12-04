@@ -65,7 +65,7 @@ function emulateClick(target) {
 function delegate(target, fn) {
 
     target.addEventListener('click', function(e) {
-        if (e.target.tagName == "BUTTON") {
+        if (e.target.tagName === 'BUTTON') {
             fn()
         }
     })
@@ -84,7 +84,6 @@ function once(target, fn) {
 
     target.addEventListener('click', fn, { once: true })
 }
-
 
 export {
     addListener,
