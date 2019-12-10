@@ -71,25 +71,29 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
 loadTowns()
-    .then(response => {
+    .then(function(sortTowns) {
+        filterBlock.style.display = 'flex';
+        loadingBlock.style.display = 'none';
 
-        filterInput.addEventListener('keyup', function() {
+        filterInput.addEventListener('keyup', function(e) {
             // это обработчик нажатия кливиш в текстовом поле
+            let chunk = e.target.value;
 
-            filterBlock.style.display = 'block';
-            loadingBlock.style.display = 'none';
+            for (let i = 0; i < sortTowns.length; i++) {
+                const element = sortTowns[i].name;
 
-            for (i of sortTowns) {
-                const townName = sortTowns[i].name;
-                if (isMatching(townName, chunk)) {
+                if (isMatching(element, chunk)) {
                     let div = document.createElement('div');
-                    div.textContent = townName;
+                    div.textContent = element;
                     filterResult.appendChild(div);
 
                 }
 
             }
 
+            if (!chunk) {
+                filterResult.innerHTML = '';
+            }
         });
     })
     .catch(() => {
