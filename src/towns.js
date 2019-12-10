@@ -72,7 +72,7 @@ const filterResult = homeworkContainer.querySelector('#filter-result');
 
 loadTowns()
     .then(function(sortTowns) {
-        filterBlock.style.display = 'flex';
+        filterBlock.style.display = 'inline-block';
         loadingBlock.style.display = 'none';
 
         filterInput.addEventListener('keyup', function(e) {
@@ -80,17 +80,15 @@ loadTowns()
             let chunk = e.target.value;
 
             for (let i = 0; i < sortTowns.length; i++) {
-                const element = sortTowns[i].name;
+                let full = sortTowns[i].name;
 
-                if (isMatching(element, chunk)) {
+                if (isMatching(full, chunk)) {
                     let div = document.createElement('div');
-                    div.textContent = element;
+                    div.textContent = full;
                     filterResult.appendChild(div);
 
                 }
-
             }
-
             if (!chunk) {
                 filterResult.innerHTML = '';
             }
@@ -99,7 +97,6 @@ loadTowns()
     .catch(() => {
 
     })
-
 export {
     loadTowns,
     isMatching
