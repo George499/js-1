@@ -10,6 +10,7 @@
  */
 function delayPromise(seconds) {
     seconds = 1000;
+
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve()
@@ -45,6 +46,7 @@ function loadAndSortTowns() {
                     if (a.name < b.name) {
                         return -1
                     }
+
                     return 0
                 })
 

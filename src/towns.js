@@ -1,5 +1,4 @@
 import { loadAndSortTowns } from './index'
-import { rejects } from 'assert';
 
 /*
  Страница должна предварительно загрузить список городов из
@@ -57,7 +56,7 @@ function loadTowns() {
 function isMatching(full, chunk) {
     if (full.toLowerCase().includes(chunk.toLowerCase())) {
         return true;
-    } else {
+    } else if (chunk) {
         return false
     }
 }
@@ -85,6 +84,7 @@ loadTowns()
 
                 if (isMatching(full, chunk)) {
                     let div = document.createElement('div');
+
                     div.textContent = full;
                     filterResult.appendChild(div);
 
@@ -95,22 +95,23 @@ loadTowns()
             }
         });
     })
-    .catch((e) => {
+    .catch(() => {
         addReloadButton()
     })
 
 function addReloadButton() {
-    loadingBlock.innerHTML = "Не удалось загрузить города"
-    loadingBlock.style.display = "flex"
-    loadingBlock.style.flexDirection = "column"
+    loadingBlock.innerHTML = 'Не удалось загрузить города'
+    loadingBlock.style.display = 'flex'
+    loadingBlock.style.flexDirection = 'column'
     const button = document.createElement('button')
+
     button.innerText = 'Повторить';
     button.classList.add('button');
-    button.style.width = "10%"
+    button.style.width = '10%'
     loadingBlock.appendChild(button);
     button.addEventListener('click', function() {
         loadAndSortTowns()
-            .catch((e) => {})
+            .catch((e) => e)
     })
 }
 
