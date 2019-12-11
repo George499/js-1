@@ -43,16 +43,6 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('keyup', function() {
-    // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
-    const value = filterNameInput.value;
-    const allCookie = parseCookie();
-    const filterPar = filterObj(value, allCookie);
-
-    renderTable(filterPar);
-
-});
-
 function parseCookie() {
     const cookie = document.cookie;
 
@@ -66,6 +56,16 @@ function parseCookie() {
 
 }
 
+filterNameInput.addEventListener('keyup', function() {
+    // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
+    const value = filterNameInput.value;
+    const allCookie = parseCookie();
+    const filterPar = filter(value, allCookie);
+
+    renderTable(filterPar);
+
+});
+
 addButton.addEventListener('click', () => {
     // здесь можно обработать нажатие на кнопку "добавить cookie"
     const name = addNameInput.value;
@@ -76,13 +76,14 @@ addButton.addEventListener('click', () => {
     function addCookie(name, value) {
         document.cookie = `${name}=${value};`;
     }
+
     addCookie(name, value);
     if (filterValue) {
         if (isMatching(name, filterValue) || isMatching(value, filterValue)) {
-            addRowTable(name, value)
+            addTable(name, value)
         }
         if (allCookie.hasOwnProperty(name) && !isMatching(value, filterValue)) {
-            deleteRowTable(getRowTable(name));
+            deleteTable(getTable(name));
         }
     } else {
         renderTable(parseCookie());
@@ -93,12 +94,12 @@ function deleteCookie(name) {
     document.cookie = `${name}=''; expires='Thu, 01 Jan 1970 00:00:01 GMT'`;
 }
 
-function addRowTable(name, value) {
+function addTable(name, value) {
+    const button = document.createElement('button');
+    const tdDel = document.createElement('td');
     const tr = document.createElement('tr');
     const tdName = document.createElement('td');
     const tdValue = document.createElement('td');
-    const tdDel = document.createElement('td');
-    const button = document.createElement('button');
 
     tdName.innerText = name;
     tdValue.innerText = value;
@@ -108,16 +109,14 @@ function addRowTable(name, value) {
     button.classList.add('button');
     tdDel.appendChild(button);
 
-
+    listTable.appendChild(tr);
     tr.appendChild(tdName);
     tr.appendChild(tdValue);
     tr.appendChild(tdDel);
-    listTable.appendChild(tr);
+
 }
 
-
-
-function getRowTable(name) {
+function getTable(name) {
     return document.getElementsByClassName(name);
 
 }
@@ -127,7 +126,7 @@ function renderTable(obj) {
 
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
-            addRowTable(key, obj[key]);
+            addTable(key, obj[key]);
         }
     }
 }
@@ -136,19 +135,19 @@ function isMatching(full, chunk) {
     return full.includes(chunk)
 }
 
-function filterObj(value, obj) {
-    let filterObj = {};
+function filter(value, obj) {
+    let filter = {};
 
     for (let key in obj) {
         if (isMatching(key, value) || isMatching(obj[key], value)) {
             if (obj.hasOwnProperty(key)) {
-                filterObj[key] = obj[key];
+                filter[key] = obj[key];
             }
 
         }
     }
 
-    return filterObj;
+    return filter;
 }
 listTable.addEventListener('click', (e) => {
 
