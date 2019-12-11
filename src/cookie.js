@@ -47,31 +47,10 @@ filterNameInput.addEventListener('keyup', function() {
     // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
     const value = filterNameInput.value;
     const allCookie = parseCookie();
-    const res = filterObj(value, allCookie);
+    const filterPar = filterObj(value, allCookie);
 
-    renderTable(res);
+    renderTable(filterPar);
 
-});
-
-
-addButton.addEventListener('click', () => {
-    // здесь можно обработать нажатие на кнопку "добавить cookie"
-    const name = addNameInput.value;
-    const value = addValueInput.value;
-    const filterValue = filterNameInput.value;
-    const allCookie = parseCookie();
-
-    addCookie(name, value);
-    if (filterValue) {
-        if (isMatching(name, filterValue) || isMatching(value, filterValue)) {
-            addRowTable(name, value)
-        }
-        if (allCookie.hasOwnProperty(name) && !isMatching(value, filterValue)) {
-            deleteRowTable(getRowTable(name));
-        }
-    } else {
-        renderTable(parseCookie());
-    }
 });
 
 function parseCookie() {
@@ -87,16 +66,31 @@ function parseCookie() {
 
 }
 
-function addCookie(name, value) {
-    if (name) {
+addButton.addEventListener('click', () => {
+    // здесь можно обработать нажатие на кнопку "добавить cookie"
+    const name = addNameInput.value;
+    const value = addValueInput.value;
+    const filterValue = filterNameInput.value;
+    const allCookie = parseCookie();
+
+    function addCookie(name, value) {
         document.cookie = `${name}=${value};`;
     }
-}
+    addCookie(name, value);
+    if (filterValue) {
+        if (isMatching(name, filterValue) || isMatching(value, filterValue)) {
+            addRowTable(name, value)
+        }
+        if (allCookie.hasOwnProperty(name) && !isMatching(value, filterValue)) {
+            deleteRowTable(getRowTable(name));
+        }
+    } else {
+        renderTable(parseCookie());
+    }
+});
 
 function deleteCookie(name) {
-
-    setCookie(name, null, { expires: -1 })
-
+    document.cookie = `${name}=''; expires='Thu, 01 Jan 1970 00:00:01 GMT'`;
 }
 
 function addRowTable(name, value) {
@@ -124,7 +118,7 @@ function addRowTable(name, value) {
 
 
 function getRowTable(name) {
-    return document.getElementsByClassName(name)[0];
+    return document.getElementsByClassName(name);
 
 }
 
@@ -159,14 +153,9 @@ function filterObj(value, obj) {
 listTable.addEventListener('click', (e) => {
 
     if (e.target.tagName === 'BUTTON') {
-        //console.log(e.target.tagName);
         let tr = e.target.closest('tr');
-        let deletedCookie = tr.children[0].textContent;
-        //console.log(deletedCookie);
-        let date = new Date(0);
-        document.cookie = `${deletedCookie}=; expires=${date.toUTCString()}`;
+        deleteCookie(e.target.dataset.name);
         tr.remove();
-        //listTable.removeChild(tr);
 
     }
 
