@@ -33,7 +33,7 @@ https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
 function loadAndSortTowns() {
     return new Promise(function(resolve, reject) {
 
-        fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
+        fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/citie.json')
             .then(response => {
                 return response.json();
             })

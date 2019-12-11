@@ -1,4 +1,5 @@
 import { loadAndSortTowns } from './index'
+import { rejects } from 'assert';
 
 /*
  Страница должна предварительно загрузить список городов из
@@ -94,9 +95,25 @@ loadTowns()
             }
         });
     })
-    .catch(() => {
-
+    .catch((e) => {
+        addReloadButton()
     })
+
+function addReloadButton() {
+    loadingBlock.innerHTML = "Не удалось загрузить города"
+    loadingBlock.style.display = "flex"
+    loadingBlock.style.flexDirection = "column"
+    const button = document.createElement('button')
+    button.innerText = 'Повторить';
+    button.classList.add('button');
+    button.style.width = "10%"
+    loadingBlock.appendChild(button);
+    button.addEventListener('click', function() {
+        loadAndSortTowns()
+            .catch((e) => {})
+    })
+}
+
 export {
     loadTowns,
     isMatching
