@@ -1,4 +1,4 @@
-import { loadAndSortTowns } from './index'
+import { loadAndSortTowns as importedTowns } from './index';
 
 /*
  Страница должна предварительно загрузить список городов из
@@ -39,7 +39,7 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-    return loadAndSortTowns()
+    return importedTowns()
 }
 
 /*
@@ -110,7 +110,7 @@ function addReloadButton() {
     button.style.width = '10%'
     loadingBlock.appendChild(button);
     button.addEventListener('click', function() {
-        loadAndSortTowns()
+        importedTowns()
             .catch((e) => e)
     })
 }

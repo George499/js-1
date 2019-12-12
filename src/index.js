@@ -9,12 +9,11 @@
    delayPromise(3) // вернет promise, который будет разрешен через 3 секунды
  */
 function delayPromise(seconds) {
-    seconds = 1000;
 
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve()
-        }, seconds);
+        }, seconds * 1000);
     });
 }
 
@@ -34,7 +33,7 @@ https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
 function loadAndSortTowns() {
     return new Promise(function(resolve, reject) {
 
-        fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/citie.json')
+        fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
             .then(response => {
                 return response.json();
             })
