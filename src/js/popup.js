@@ -1,6 +1,6 @@
 import render from './../templates/popup.hbs';
 
-var feedbacksArray = [];
+var feedbackArray = [];
 
 function openPopup(obj, myMap, position, clusterer, hintContent) {
     var popup = document.querySelector('.popup');
@@ -20,28 +20,28 @@ function addFeedback(obj, myMap, position, clusterer, popup, hintContent) {
     var inputName = document.querySelector('.form__name');
     var inputPlace = document.querySelector('.form__place');
     var inputText = document.querySelector('.form__text');
-    var addButton = document.querySelectorAll('.footer__add')[document.querySelectorAll('.footer__add').length - 1];
+    var addButton = document.querySelector('.footer__add-btn')
 
     var headerAddress = document.querySelector('.header__address-text');
 
     headerAddress.innerHTML = obj.address;
 
     var feedbacks = document.querySelector('.feedbacks');
-    var feedback = document.createElement('li');
+    var feedbackItem = document.createElement('li');
 
-    feedback.classList.add('feedback');
-    feedback.innerHTML = hintContent;
-    feedbacks.appendChild(feedback);
+    feedbackItem.classList.add('feedback');
+    feedbackItem.innerHTML = hintContent;
+    feedbacks.appendChild(feedbackItem);
 
     addButton.addEventListener('click', () => {
         if (inputName.value && inputPlace.value && inputText.value) {
-            var feedback = document.createElement('li');
+            var feedbackItem = document.createElement('li');
 
             var name = document.createElement('div');
             var place = document.createElement('div');
             var text = document.createElement('div');
             var day = document.createElement('div');
-            var firstLine = document.createElement('div');
+            var row = document.createElement('div');
 
             name.innerHTML = inputName.value;
             place.innerHTML = inputPlace.value;
@@ -51,27 +51,23 @@ function addFeedback(obj, myMap, position, clusterer, popup, hintContent) {
 
             day.innerHTML = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
 
-            feedback.classList.add('feedback');
+            feedbackItem.classList.add('feedback');
             name.classList.add('feedback__name');
             place.classList.add('feedback__place');
             text.classList.add('feedback__text');
-            firstLine.classList.add('feedback__firstLine');
+            row.classList.add('feedback__row');
 
-            firstLine.appendChild(name);
-            firstLine.appendChild(place);
-            firstLine.appendChild(day);
+            row.appendChild(name);
+            row.appendChild(place);
+            row.appendChild(day);
 
-            feedback.appendChild(firstLine);
-            feedback.appendChild(text);
+            feedbackItem.appendChild(row);
+            feedbackItem.appendChild(text);
 
-            feedbacks.appendChild(feedback);
-
-            inputName.value = '';
-            inputPlace.value = '';
-            inputText.value = '';
+            feedbacks.appendChild(feedbackItem);
 
             placemarks(obj, myMap, position, clusterer, popup);
-            feedbacksArray.push(feedback);
+            feedbackArray.push(feedback);
         } else {
             alert('Заполните все поля!')
         }
@@ -91,7 +87,7 @@ function placemarks(obj, myMap, position, clusterer, popup) {
     clusterer.add(placemark);
 
     placemark.events.add('click', () => {
-        openPopup(obj, myMap, position, clusterer, placemark.properties._data.hintContent);
+        openPopup(obj, myMap, position, clusterer);
     })
 }
 

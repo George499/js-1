@@ -23,7 +23,7 @@
     justify-content: space-between;
 }
 
-.header__address-image {
+.header__address-img {
     width: 8px;
     height: 13px;
     margin-right: 10px;
@@ -102,7 +102,7 @@
     border-radius: 0 0 7px 7px;
 }
 
-.footer__add {
+.footer__add-btn {
     border: none;
     outline: none;
     width: 87px;
@@ -111,4 +111,5 @@
     margin-right: 3%;
     color: #fff;
     border-radius: 7px;
+    cursor: pointer;
 }

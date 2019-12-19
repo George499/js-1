@@ -1,4 +1,4 @@
-import { openPopup } from './../js/popup';
+import { openPopup as popup } from './../js/popup';
 
 function mapInit() {
     ymaps.ready(() => {
@@ -27,21 +27,22 @@ function mapInit() {
             var geoCoords = ymaps.geocode(coords);
             var position = e.get('position');
 
-            geoCoords.then(res => {
+            geoCoords.then(resolve => {
                 var obj = {};
 
                 obj.coords = coords;
-                obj.address = res.geoObjects.get(0).properties.get('text');
+                obj.address = resolve.geoObjects.get(0).properties.get('text');
                 obj.comments = [];
 
-                if (position[1] > window.screen.availHeight - 526) {
-                    position[1] = window.screen.availHeight - 526;
+                if (position[0] > window.screen.width - 380) {
+                    position[0] = window.screen.width - 400;
                 }
-                if (position[0] > window.screen.availWidth - 380) {
-                    position[0] = window.screen.availWidth - 760;
+                if (
+                    position[1] > window.screen.height - 526) {
+                    position[1] = window.screen.height - 700;
                 }
 
-                openPopup(obj, myMap, position, clusterer, '');
+                popup(obj, myMap, position, clusterer, '');
             });
         });
     });
