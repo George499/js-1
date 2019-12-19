@@ -42,7 +42,7 @@ function mapInit() {
                     position[1] = window.screen.height - 700;
                 }
 
-                popup(obj, myMap, position, clusterer, '');
+                popup(obj, myMap, position, clusterer, "");
             });
         });
     });
