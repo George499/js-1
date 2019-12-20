@@ -66,6 +66,7 @@ function addFeedback(obj, myMap, position, clusterer, popup, hintContent) {
 }
 
 function openPopup(obj, myMap, position, clusterer, hintContent) {
+
     popup.style.display = 'block';
     popup.innerHTML = render();
     popup.style.position = 'absolute';
@@ -76,7 +77,7 @@ function openPopup(obj, myMap, position, clusterer, hintContent) {
     closeButton.addEventListener('click', closePopup)
 }
 
-function closePopup() {
+function closePopup(clusterer) {
     popup.style.display = 'none';
     popup.innerHTML = '';
 }
@@ -84,7 +85,9 @@ function closePopup() {
 function placemarkContent(obj, myMap, position, clusterer, popup) {
     var placemark = new ymaps.Placemark(obj.coords, {
         hintContent: popup.children[1].lastChild.innerHTML,
-        balloonContent: obj.address + popup.children[1].lastChild.innerHTML
+        balloonContentHeader: obj.address,
+        balloonContentBody: popup.children[1].lastChild.innerHTML,
+        balloonContentFooter: 'Мацуо Басё'
     }, {
         preset: 'islands#darkOrangeDotIcon',
         openHintOnHover: false

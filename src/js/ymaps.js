@@ -1,5 +1,6 @@
 import { openPopup as popup } from './../js/popup';
 
+
 function mapInit() {
     ymaps.ready(() => {
         var myMap = new ymaps.Map('map', {
@@ -12,13 +13,29 @@ function mapInit() {
             geoObjectOpenBalloonOnClick: false
         });
 
+        var customItemContentLayout = ymaps.templateLayoutFactory.createClass(
+            // Флаг "raw" означает, что данные вставляют "как есть" без экранирования html.
+            '<h2 class=ballon_header>{{ properties.balloonContentHeader|raw }}</h2>' +
+            '<div class=ballon_body>{{ properties.balloonContentBody|raw }}</div>' +
+            '<div class=ballon_footer>{{ properties.balloonContentFooter|raw }}</div>', {
+                build: function() {
+                    customItemContentLayout.superclass.build.call(this);
+                    var ballonHeader = document.querySelector(".ballon_header");
+                    ballonHeader.addEventListener('click', popup);
+                },
+            }
+        );
+
+
         var clusterer = new ymaps.Clusterer({
             preset: 'islands#invertedDarkOrangeClusterIcons',
             clusterDisableClickZoom: true,
             openBalloonOnClick: true,
             groupByCoordinates: false,
-            clusterBalloonContentLayout: 'cluster#balloonCarousel'
+            clusterBalloonContentLayout: 'cluster#balloonCarousel',
+            clusterBalloonItemContentLayout: customItemContentLayout,
         });
+
 
         myMap.geoObjects.add(clusterer);
 
