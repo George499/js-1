@@ -65,13 +65,14 @@ function addFeedback(obj, myMap, position, clusterer, popup, hintContent) {
     }
 }
 
+
 function openPopup(obj, myMap, position, clusterer, hintContent) {
 
     popup.style.display = 'block';
     popup.innerHTML = render();
     popup.style.position = 'absolute';
-    popup.style.top = position[1] + 'px';
-    popup.style.left = position[0] + 'px';
+    popup.style.top = 200 + 'px';
+    popup.style.left = 200 + 'px';
     var closeButton = document.querySelector('.header__close');
     addFeedback(obj, myMap, position, clusterer, popup, hintContent);
     closeButton.addEventListener('click', closePopup)

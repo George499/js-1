@@ -21,6 +21,7 @@ function mapInit() {
                 build: function() {
                     customItemContentLayout.superclass.build.call(this);
                     var ballonHeader = document.querySelector(".ballon_header");
+
                     ballonHeader.addEventListener('click', popup);
                 },
             }
@@ -43,7 +44,6 @@ function mapInit() {
             var coords = e.get('coords');
             var geoCoords = ymaps.geocode(coords);
             var position = e.get('position');
-
             geoCoords.then(resolve => {
                 var obj = {};
 
