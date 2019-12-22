@@ -14,15 +14,34 @@ function mapInit() {
         });
 
         var customItemContentLayout = ymaps.templateLayoutFactory.createClass(
-            // Флаг "raw" означает, что данные вставляют "как есть" без экранирования html.
+            '<div class=ballon__content>' +
             '<h2 class=ballon_header>{{ properties.balloonContentHeader|raw }}</h2>' +
-            '<div class=ballon_body>{{ properties.balloonContentBody|raw }}</div>' +
-            '<div class=ballon_footer>{{ properties.balloonContentFooter|raw }}</div>', {
+            '<div class=ballon_body_header>{{ properties.balloonContentBodyHeader|raw }}</div>' +
+            '<div class=ballon_body_center>{{ properties.balloonContentBody|raw }}</div>' +
+            '<div class=ballon_footer>{{ properties.balloonContentFooter|raw }}</div>' +
+            '</div>', {
                 build: function() {
                     customItemContentLayout.superclass.build.call(this);
                     var ballonHeader = document.querySelector(".ballon_header");
 
-                    ballonHeader.addEventListener('click', popup);
+                    ballonHeader.addEventListener('click', (e) => {
+                        var clusterAdress = e.target.innerHTML
+                        var myGeocoder = ymaps.geocode(clusterAdress)
+                        myGeocoder.then(
+                            function(res) {
+                                var pixel = res.geoObjects.get(0).geometry.getCoordinates()
+                                var obj = {}
+                                obj.coords = pixel;
+                                obj.address = clusterAdress;
+                                obj.comments = [];
+                                popup(obj, myMap, pixel, clusterer, "");
+                            },
+                            function(err) {
+                                alert('Ошибка');
+                            }
+                        );
+
+                    });
                 },
             }
         );
@@ -58,6 +77,7 @@ function mapInit() {
                     position[1] > window.screen.height - 526) {
                     position[1] = window.screen.height - 700;
                 }
+
 
                 popup(obj, myMap, position, clusterer, "");
             });

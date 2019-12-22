@@ -113,3 +113,25 @@
     border-radius: 7px;
     cursor: pointer;
 }
+
+.ballon_header {
+    font-size: 15px;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.ballon__content {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+}
+
+.ballon_footer {
+    align-self: flex-end;
+}
+
+.ballon_body_header {
+    font-weight: bold;
+}

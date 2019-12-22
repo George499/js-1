@@ -45,6 +45,7 @@ function addFeedback(obj, myMap, position, clusterer, popup, hintContent) {
             place.classList.add('feedback__place');
             text.classList.add('feedback__text');
             row.classList.add('feedback__row');
+            day.classList.add('day')
 
             row.appendChild(name);
             row.appendChild(place);
@@ -71,8 +72,8 @@ function openPopup(obj, myMap, position, clusterer, hintContent) {
     popup.style.display = 'block';
     popup.innerHTML = render();
     popup.style.position = 'absolute';
-    popup.style.top = 200 + 'px';
-    popup.style.left = 200 + 'px';
+    popup.style.top = position[1] + 'px';
+    popup.style.left = position[0] + 'px';
     var closeButton = document.querySelector('.header__close');
     addFeedback(obj, myMap, position, clusterer, popup, hintContent);
     closeButton.addEventListener('click', closePopup)
@@ -84,11 +85,14 @@ function closePopup(clusterer) {
 }
 
 function placemarkContent(obj, myMap, position, clusterer, popup) {
+
     var placemark = new ymaps.Placemark(obj.coords, {
         hintContent: popup.children[1].lastChild.innerHTML,
         balloonContentHeader: obj.address,
-        balloonContentBody: popup.children[1].lastChild.innerHTML,
-        balloonContentFooter: 'Мацуо Басё'
+        balloonContentBodyHeader: popup.querySelectorAll('.feedback__place')[0].innerHTML,
+        balloonContentBody: popup.querySelectorAll('.feedback__text')[0].innerHTML,
+        balloonContentFooter: popup.querySelectorAll('.day')[0].innerHTML,
+
     }, {
         preset: 'islands#darkOrangeDotIcon',
         openHintOnHover: false
