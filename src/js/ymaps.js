@@ -34,15 +34,14 @@ function mapInit() {
                                 obj.address = clusterAdress;
                                 obj.comments = [];
                                 var newObj = []
+
                                 for (let i = 0; i < myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects.length; i++) {
                                     var hint = myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects[i]
                                     newObj.push(hint)
                                 }
                                 for (let i of newObj) {
-                                    let hintContent = i.properties._data.hintContent
-                                    console.log(hintContent);
+                                    popup(obj, myMap, pixel, clusterer, i.properties._data.hintContent);
 
-                                    popup(obj, myMap, pixel, clusterer, hintContent);
                                 }
                             },
                             function(err) {
