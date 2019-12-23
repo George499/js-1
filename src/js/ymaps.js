@@ -40,6 +40,8 @@ function mapInit() {
                                 }
                                 for (let i of newObj) {
                                     let hintContent = i.properties._data.hintContent
+                                    console.log(hintContent);
+
                                     popup(obj, myMap, pixel, clusterer, hintContent);
                                 }
                             },
