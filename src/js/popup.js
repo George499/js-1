@@ -20,7 +20,9 @@ function addFeedback(obj, myMap, position, clusterer, popup, hintContent) {
     feedbackItem.innerHTML = hintContent;
     feedbacks.appendChild(feedbackItem);
 
-    addButton.addEventListener('click', createItem)
+    addButton.addEventListener('click', () => {
+        createItem()
+    })
 
     function createItem() {
         if (inputName.value && inputPlace.value && inputText.value) {
@@ -85,7 +87,6 @@ function closePopup(clusterer) {
 }
 
 function placemarkContent(obj, myMap, position, clusterer, popup) {
-
     var placemark = new ymaps.Placemark(obj.coords, {
         hintContent: popup.children[1].lastChild.innerHTML,
         balloonContentHeader: obj.address,
@@ -102,7 +103,6 @@ function placemarkContent(obj, myMap, position, clusterer, popup) {
     clusterer.add(placemark);
 
     placemark.events.add('click', () => {
-
         openPopup(obj, myMap, position, clusterer, placemark.properties._data.hintContent)
     })
 }

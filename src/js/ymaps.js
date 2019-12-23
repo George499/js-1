@@ -23,7 +23,6 @@ function mapInit() {
                 build: function() {
                     customItemContentLayout.superclass.build.call(this);
                     var ballonHeader = document.querySelector(".ballon_header");
-
                     ballonHeader.addEventListener('click', (e) => {
                         var clusterAdress = e.target.innerHTML
                         var myGeocoder = ymaps.geocode(clusterAdress)
@@ -34,7 +33,15 @@ function mapInit() {
                                 obj.coords = pixel;
                                 obj.address = clusterAdress;
                                 obj.comments = [];
-                                popup(obj, myMap, pixel, clusterer, "");
+                                var newObj = []
+                                for (let i = 0; i < myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects.length; i++) {
+                                    var hint = myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects[i]
+                                    newObj.push(hint)
+                                }
+                                for (let i of newObj) {
+                                    let hintContent = i.properties._data.hintContent
+                                    popup(obj, myMap, pixel, clusterer, hintContent);
+                                }
                             },
                             function(err) {
                                 alert('Ошибка');
