@@ -34,13 +34,26 @@ function mapInit() {
                                 obj.address = clusterAdress;
                                 obj.comments = [];
                                 var newObj = []
+                                let arr = []
 
                                 for (let i = 0; i < myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects.length; i++) {
                                     var hint = myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects[i]
                                     newObj.push(hint)
                                 }
+
                                 for (let i of newObj) {
-                                    popup(obj, myMap, pixel, clusterer, i.properties._data.hintContent);
+                                    let ul = document.createElement('ul')
+                                    console.log(arr);
+
+                                    for (let a of arr) {
+                                        let li = document.createElement('li')
+                                        li.innerHTML = i.properties._data.hintContent
+                                        arr.push(a)
+
+                                        ul.appendChild(li)
+                                        popup(obj, myMap, pixel, clusterer, "");
+                                    }
+
 
                                 }
                             },
