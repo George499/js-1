@@ -87,13 +87,24 @@ function closePopup(clusterer) {
 }
 
 function placemarkContent(obj, myMap, position, clusterer, popup) {
+    let feedbackPlace = popup.querySelectorAll('.feedback__place')
+    let feedbackText = popup.querySelectorAll('.feedback__text')
+    let day = popup.querySelectorAll('.day')
+    for (let i of feedbackPlace) {
+        var p = i.innerHTML
+    }
+    for (let i of feedbackText) {
+        var t = i.innerHTML
+    }
+    for (let i of day) {
+        var d = i.innerHTML
+    }
     var placemark = new ymaps.Placemark(obj.coords, {
         hintContent: popup.children[1].lastChild.innerHTML,
         balloonContentHeader: obj.address,
-        balloonContentBodyHeader: popup.querySelectorAll('.feedback__place')[0].innerHTML,
-        balloonContentBody: popup.querySelectorAll('.feedback__text')[0].innerHTML,
-        balloonContentFooter: popup.querySelectorAll('.day')[0].innerHTML,
-
+        balloonContentBodyHeader: p,
+        balloonContentBody: t,
+        balloonContentFooter: d,
     }, {
         preset: 'islands#darkOrangeDotIcon',
         openHintOnHover: false

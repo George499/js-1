@@ -23,40 +23,38 @@ function mapInit() {
                 build: function() {
                     customItemContentLayout.superclass.build.call(this);
                     var ballonHeader = document.querySelector(".ballon_header");
+
+
                     ballonHeader.addEventListener('click', (e) => {
                         var clusterAdress = e.target.innerHTML
                         var myGeocoder = ymaps.geocode(clusterAdress)
                         myGeocoder.then(
                             function(res) {
-                                var pixel = res.geoObjects.get(0).geometry.getCoordinates()
+                                var pixel = res.geoObjects.get(0).geometry
                                 var obj = {}
                                 obj.coords = pixel;
                                 obj.address = clusterAdress;
                                 obj.comments = [];
                                 var newObj = []
-                                let arr = []
-
                                 for (let i = 0; i < myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects.length; i++) {
                                     var hint = myMap.geoObjects._map.balloon._balloon._data.properties._sourceDataManager._data.geoObjects[i]
                                     newObj.push(hint)
                                 }
-
+                                let ul = document.createElement('ul')
+                                var arr = []
                                 for (let i of newObj) {
-                                    let ul = document.createElement('ul')
-                                    console.log(arr);
-
-                                    for (let a of arr) {
-                                        let li = document.createElement('li')
-                                        li.innerHTML = i.properties._data.hintContent
-                                        arr.push(a)
-
-                                        ul.appendChild(li)
-                                        popup(obj, myMap, pixel, clusterer, "");
-                                    }
-
+                                    let li = document.createElement('li')
+                                    li.innerHTML = i.properties._data.hintContent
+                                    arr.push(li)
+                                }
+                                for (let a of arr) {
+                                    ul.appendChild(a)
 
                                 }
+                                popup(obj, myMap, pixel, clusterer, ul.innerHTML);
+
                             },
+
                             function(err) {
                                 alert('Ошибка');
                             }
@@ -66,8 +64,6 @@ function mapInit() {
                 },
             }
         );
-
-
         var clusterer = new ymaps.Clusterer({
             preset: 'islands#invertedDarkOrangeClusterIcons',
             clusterDisableClickZoom: true,
