@@ -51,7 +51,7 @@ module.exports = {
         // }),
         new ExtractTextPlugin('styles.css'),
         new HtmlPlugin({
-            title: 'GeoFeedback',
+            title: 'Chat',
             template: 'index.hbs',
             filename: 'index.html',
             chunks: ['index']
