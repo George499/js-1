@@ -109,6 +109,9 @@ function placemarkContent(obj, myMap, position, clusterer, popup) {
         preset: 'islands#darkOrangeDotIcon',
         openHintOnHover: false
     });
+    console.log(popup.children[1]);
+    console.log(popup);
+
 
     myMap.geoObjects.add(placemark);
     clusterer.add(placemark);
@@ -117,6 +120,7 @@ function placemarkContent(obj, myMap, position, clusterer, popup) {
         openPopup(obj, myMap, position, clusterer, placemark.properties._data.hintContent)
     })
 }
+
 
 export {
     openPopup

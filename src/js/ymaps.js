@@ -51,6 +51,7 @@ function mapInit() {
                                     ul.appendChild(a)
 
                                 }
+
                                 popup(obj, myMap, pixel, clusterer, ul.innerHTML);
 
                             },
